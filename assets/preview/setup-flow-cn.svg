@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="90" y1="60" x2="1190" y2="660" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06111E"/>
+      <stop offset="1" stop-color="#10233C"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="120" y1="170" x2="1160" y2="550" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0C182B"/>
+      <stop offset="1" stop-color="#14263F"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="160" y1="220" x2="430" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8CF4FF"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="500" y1="220" x2="780" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#86EFAC"/>
+      <stop offset="1" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="850" y1="220" x2="1130" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <filter id="shadow" x="92" y="92" width="1096" height="536" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="18"/>
+      <feGaussianBlur stdDeviation="14"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0078 0 0 0 0 0.047 0 0 0 0 0.11 0 0 0 0.34 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="720" fill="#08101C"/>
+  <rect x="60" y="60" width="1160" height="600" rx="40" fill="url(#bg)"/>
+  <rect x="60.75" y="60.75" width="1158.5" height="598.5" rx="39.25" stroke="#67E8F9" stroke-opacity="0.12" stroke-width="1.5"/>
+
+  <text x="120" y="132" fill="#E2E8F0" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="42" font-weight="700">SSH 免密配置器</text>
+  <text x="120" y="170" fill="#93C5FD" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="22">给第一次配置 SSH 的用户准备的双击式引导流程</text>
+
+  <g filter="url(#shadow)">
+    <rect x="112" y="202" width="1056" height="348" rx="28" fill="url(#panel)"/>
+    <rect x="112.75" y="202.75" width="1054.5" height="346.5" rx="27.25" stroke="white" stroke-opacity="0.06" stroke-width="1.5"/>
+  </g>
+
+  <rect x="156" y="238" width="250" height="276" rx="26" fill="#0A1627"/>
+  <rect x="156.75" y="238.75" width="248.5" height="274.5" rx="25.25" stroke="#8CF4FF" stroke-opacity="0.25" stroke-width="1.5"/>
+  <rect x="186" y="266" width="92" height="92" rx="22" fill="url(#cyan)" fill-opacity="0.2"/>
+  <path d="M216 305H338" stroke="url(#cyan)" stroke-width="14" stroke-linecap="round"/>
+  <path d="M216 336H316" stroke="#A5F3FC" stroke-opacity="0.55" stroke-width="10" stroke-linecap="round"/>
+  <path d="M216 365H292" stroke="#A5F3FC" stroke-opacity="0.35" stroke-width="10" stroke-linecap="round"/>
+  <text x="186" y="410" fill="#E2E8F0" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700">1. 输入信息</text>
+  <text x="186" y="448" fill="#CBD5E1" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18">服务器地址、用户名、</text>
+  <text x="186" y="474" fill="#CBD5E1" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18">本地别名和服务器密码</text>
+
+  <rect x="515" y="238" width="250" height="276" rx="26" fill="#0A1627"/>
+  <rect x="515.75" y="238.75" width="248.5" height="274.5" rx="25.25" stroke="#86EFAC" stroke-opacity="0.24" stroke-width="1.5"/>
+  <rect x="545" y="266" width="92" height="92" rx="22" fill="url(#mint)" fill-opacity="0.2"/>
+  <path d="M568 312L590 334L626 290" stroke="url(#mint)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M575 337H690" stroke="#A7F3D0" stroke-opacity="0.56" stroke-width="10" stroke-linecap="round"/>
+  <path d="M575 366H670" stroke="#A7F3D0" stroke-opacity="0.34" stroke-width="10" stroke-linecap="round"/>
+  <text x="545" y="410" fill="#E2E8F0" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700">2. 自动配置</text>
+  <text x="545" y="448" fill="#CBD5E1" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18">生成新密钥、安装公钥，</text>
+  <text x="545" y="474" fill="#CBD5E1" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18">并写入 SSH 配置</text>
+
+  <rect x="874" y="238" width="250" height="276" rx="26" fill="#0A1627"/>
+  <rect x="874.75" y="238.75" width="248.5" height="274.5" rx="25.25" stroke="#FDE68A" stroke-opacity="0.28" stroke-width="1.5"/>
+  <rect x="904" y="266" width="92" height="92" rx="22" fill="url(#gold)" fill-opacity="0.2"/>
+  <path d="M936 316H1027" stroke="url(#gold)" stroke-width="14" stroke-linecap="round"/>
+  <path d="M936 346H1000" stroke="#FDE68A" stroke-opacity="0.52" stroke-width="10" stroke-linecap="round"/>
+  <path d="M936 375H975" stroke="#FDE68A" stroke-opacity="0.36" stroke-width="10" stroke-linecap="round"/>
+  <text x="904" y="410" fill="#E2E8F0" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700">3. 直接登录</text>
+  <text x="904" y="448" fill="#CBD5E1" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18">自动验证免密登录，</text>
+  <text x="904" y="474" fill="#CBD5E1" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="18">以后只需 ssh 备注名</text>
+
+  <path d="M430 377H488" stroke="#38BDF8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M478 359L510 377L478 395" stroke="#38BDF8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <path d="M789 377H847" stroke="#34D399" stroke-width="8" stroke-linecap="round"/>
+  <path d="M837 359L869 377L837 395" stroke="#34D399" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="190" y="592" width="900" height="44" rx="22" fill="#071626"/>
+  <text x="234" y="620" fill="#93C5FD" font-family="PingFang SC, Noto Sans CJK SC, Microsoft YaHei, sans-serif" font-size="20">密码只进入本机 OpenSSH 提示；私钥只保存在用户自己的 ~/.ssh 目录。</text>
+</svg>

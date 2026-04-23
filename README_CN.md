@@ -16,7 +16,7 @@
 
 ## 预览
 
-![SSH Passwordless Installer 预览](./assets/preview/setup-flow.svg)
+![SSH 免密配置器预览](./assets/preview/setup-flow-cn.svg)
 
 ## 功能亮点
 
@@ -124,6 +124,7 @@ assets/
   brand/
     logo.svg
   preview/
+    setup-flow-cn.svg
     setup-flow.svg
 
 docs/
