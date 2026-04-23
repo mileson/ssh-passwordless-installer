@@ -9,6 +9,12 @@ WINDOWS_TMP="$BUILD_DIR/windows"
 mkdir -p "$FINAL_DIR" "$WINDOWS_TMP"
 rm -rf "$WINDOWS_TMP"/* "$FINAL_DIR"/*
 
+cleanup_tmp() {
+  rm -rf "$WINDOWS_TMP"
+}
+
+trap cleanup_tmp EXIT
+
 "$REPO_DIR/tools_build_macos_apps.sh"
 
 WINDOWS_BUNDLE_DIR="$WINDOWS_TMP/SSH-Passwordless-Setup-Windows"
@@ -27,7 +33,7 @@ cp "$REPO_DIR/LICENSE" "$WINDOWS_BUNDLE_DIR/"
 
 cp "$REPO_DIR/build/macos-apps/final/SSH-Passwordless-Setup-macOS.zip" "$FINAL_DIR/"
 
-find "$WINDOWS_TMP" -name '.DS_Store' -delete
+find "$BUILD_DIR" -name '.DS_Store' -delete
 find "$FINAL_DIR" -name '.DS_Store' -delete
 
 echo

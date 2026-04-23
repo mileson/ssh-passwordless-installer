@@ -17,6 +17,12 @@ ICON_SVG="$REPO_DIR/assets/brand/logo.svg"
 mkdir -p "$BUILD_DIR" "$FINAL_DIR" "$TMP_DIR"
 rm -rf "$TMP_DIR"/* "$FINAL_DIR"/*
 
+cleanup_tmp() {
+  rm -rf "$TMP_DIR"
+}
+
+trap cleanup_tmp EXIT
+
 create_png_from_svg() {
   local src_svg="$1"
   local out_png="$2"
@@ -136,6 +142,7 @@ else
   zip_unsigned_app "$APP_DIR"
 fi
 
+find "$BUILD_DIR" -name '.DS_Store' -delete
 find "$FINAL_DIR" -name '.DS_Store' -delete
 
 echo
