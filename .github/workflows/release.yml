@@ -32,11 +32,7 @@ jobs:
           if [[ -f "$notes_file" ]]; then
             cp "$notes_file" "$RUNNER_TEMP/release-notes.md"
           else
-            cat > "$RUNNER_TEMP/release-notes.md" <<EOF
-# ${tag}
-
-Automated release for ${tag}.
-EOF
+            printf '# %s\n\nAutomated release for %s.\n' "$tag" "$tag" > "$RUNNER_TEMP/release-notes.md"
           fi
 
           echo "path=$RUNNER_TEMP/release-notes.md" >> "$GITHUB_OUTPUT"
