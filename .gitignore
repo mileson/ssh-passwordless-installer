@@ -1,0 +1,31 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+build/
+dist/
+assets/rendered/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor and local workspace files
+.idea/
+.vscode/settings.json
+*.swp
+
+# Logs
+*.log
+logs/
+
+# Sensitive local material
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+credentials.*
+secrets.*

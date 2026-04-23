@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="132" y1="104" x2="904" y2="936" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07111F"/>
+      <stop offset="0.52" stop-color="#102038"/>
+      <stop offset="1" stop-color="#162A46"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(522 430) rotate(90) scale(372)">
+      <stop stop-color="#67E8F9" stop-opacity="0.22"/>
+      <stop offset="0.55" stop-color="#1D4ED8" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#0F172A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="panel" x1="228" y1="214" x2="798" y2="792" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1628" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#111F35" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="290" y1="350" x2="598" y2="704" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8CF4FF"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="502" y1="476" x2="770" y2="734" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="610" y1="510" x2="782" y2="746" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FDE68A"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <filter id="shadow" x="126" y="126" width="772" height="772" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="24"/>
+      <feGaussianBlur stdDeviation="34"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0117647 0 0 0 0 0.0470588 0 0 0 0 0.117647 0 0 0 0.32 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+    <filter id="soft" x="196" y="196" width="632" height="632" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="18" result="effect1_foregroundBlur_1_1"/>
+    </filter>
+  </defs>
+
+  <rect x="92" y="92" width="840" height="840" rx="196" fill="url(#bg)"/>
+  <rect x="92" y="92" width="840" height="840" rx="196" stroke="#67E8F9" stroke-opacity="0.14" stroke-width="8"/>
+  <circle cx="512" cy="428" r="344" fill="url(#glow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="176" y="176" width="672" height="672" rx="156" fill="url(#panel)"/>
+    <rect x="176" y="176" width="672" height="672" rx="156" stroke="white" stroke-opacity="0.07" stroke-width="6"/>
+
+    <g opacity="0.82">
+      <circle cx="288" cy="260" r="11" fill="#FB7185"/>
+      <circle cx="328" cy="260" r="11" fill="#FBBF24"/>
+      <circle cx="368" cy="260" r="11" fill="#34D399"/>
+    </g>
+
+    <g filter="url(#soft)" opacity="0.72">
+      <path d="M304 356C304 343.85 313.85 334 326 334H698C710.15 334 720 343.85 720 356V668C720 680.15 710.15 690 698 690H326C313.85 690 304 680.15 304 668V356Z" fill="#0A1627"/>
+    </g>
+
+    <path d="M354 432L470 518L354 604" stroke="url(#cyan)" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M520 606H612" stroke="url(#cyan)" stroke-width="50" stroke-linecap="round"/>
+
+    <path d="M594 604H650" stroke="url(#mint)" stroke-width="34" stroke-linecap="round"/>
+    <circle cx="716" cy="604" r="78" stroke="url(#gold)" stroke-width="34"/>
+    <circle cx="716" cy="604" r="20" fill="#102038"/>
+    <path d="M636 604H560" stroke="url(#gold)" stroke-width="34" stroke-linecap="round"/>
+    <path d="M598 604V670" stroke="url(#gold)" stroke-width="30" stroke-linecap="round"/>
+    <path d="M648 604V652" stroke="url(#gold)" stroke-width="30" stroke-linecap="round"/>
+
+    <path d="M642 402H706" stroke="#A5F3FC" stroke-opacity="0.55" stroke-width="16" stroke-linecap="round"/>
+    <path d="M642 446H742" stroke="#A5F3FC" stroke-opacity="0.32" stroke-width="16" stroke-linecap="round"/>
+  </g>
+</svg>

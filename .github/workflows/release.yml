@@ -1,0 +1,62 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare executable scripts
+        run: chmod +x scripts/macos/setup-passwordless-ssh.command tools_build_macos_apps.sh tools_build_release_bundles.sh
+
+      - name: Build release bundles
+        run: ./tools_build_release_bundles.sh
+
+      - name: Resolve release notes
+        id: notes
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME}"
+          notes_file="docs/releases/${tag}.md"
+
+          if [[ -f "$notes_file" ]]; then
+            cp "$notes_file" "$RUNNER_TEMP/release-notes.md"
+          else
+            cat > "$RUNNER_TEMP/release-notes.md" <<EOF
+# ${tag}
+
+Automated release for ${tag}.
+EOF
+          fi
+
+          echo "path=$RUNNER_TEMP/release-notes.md" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME}"
+          title="${tag}"
+          assets=(
+            build/release-bundles/final/SSH-Passwordless-Setup-macOS.zip
+            build/release-bundles/final/SSH-Passwordless-Setup-Windows-Download-Then-Double-Click.zip
+            assets/preview/setup-flow.svg
+          )
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release edit "$tag" --title "$title" --notes-file "${{ steps.notes.outputs.path }}"
+            gh release upload "$tag" "${assets[@]}" --clobber
+          else
+            gh release create "$tag" "${assets[@]}" --title "$title" --notes-file "${{ steps.notes.outputs.path }}"
+          fi
