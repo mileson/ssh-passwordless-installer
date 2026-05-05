@@ -38,7 +38,24 @@
 
 ## Quick Start
 
-### Option 1: Run locally
+### Option 1: Use the macOS App
+
+Build and unzip the macOS `.app`, then double-click it:
+
+```bash
+chmod +x ./tools_build_macos_apps.sh
+./tools_build_macos_apps.sh
+```
+
+This generates:
+
+```text
+build/macos-apps/final/SSH-Passwordless-Setup-macOS.zip
+```
+
+The app opens Terminal on launch and runs the bundled command-line setup flow.
+
+### Option 2: Run the local script
 
 #### macOS
 
@@ -55,7 +72,7 @@ Double-click:
 scripts\windows\setup-passwordless-ssh.bat
 ```
 
-### Option 2: Build shareable release bundles
+### Option 3: Build shareable release bundles
 
 #### Build only the macOS `.app`
 
@@ -88,8 +105,11 @@ build/release-bundles/final/SSH-Passwordless-Setup-Windows-Download-Then-Double-
 
 1. server IP or hostname
 2. SSH username, defaulting to `root`
-3. a local alias such as `vultr-root`
-4. the server password
+3. SSH port, defaulting to `22`
+4. a local alias such as `vultr-root`
+5. the server password
+
+If password login is disabled or the SSH port is blocked by the server firewall, the macOS script enters a console bootstrap flow: it prints one command to paste into the provider VNC/Console, installs the public key, tries to open the SSH port, then resumes local verification.
 
 Once the flow completes, the user can connect with:
 
@@ -99,11 +119,12 @@ ssh vultr-root
 
 ## How It Works
 
-1. collect host, username, and alias input
-2. create a fresh local SSH key for that alias
-3. install the public key on the remote host
-4. write a managed `~/.ssh/config` block
-5. verify passwordless login by both direct key and alias
+1. collect host, username, port, and alias input
+2. create a local diagnostic log and preflight the SSH port
+3. create a fresh local SSH key for that alias
+4. install the public key through `ssh-copy-id`, the fallback installer, or console bootstrap
+5. write a managed `~/.ssh/config` block
+6. verify passwordless login by both direct key and alias
 
 ## Signed macOS builds
 

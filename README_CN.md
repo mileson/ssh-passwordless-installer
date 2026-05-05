@@ -38,7 +38,24 @@
 
 ## 快速开始
 
-### 方式 1：直接本地运行
+### 方式 1：使用 macOS App
+
+构建并解压 macOS `.app` 后双击运行：
+
+```bash
+chmod +x ./tools_build_macos_apps.sh
+./tools_build_macos_apps.sh
+```
+
+生成：
+
+```text
+build/macos-apps/final/SSH-Passwordless-Setup-macOS.zip
+```
+
+这个 App 会在双击后打开 Terminal，并执行内置的命令行配置流程。
+
+### 方式 2：直接本地运行脚本
 
 #### macOS
 
@@ -55,7 +72,7 @@ chmod +x ./scripts/macos/setup-passwordless-ssh.command
 scripts\windows\setup-passwordless-ssh.bat
 ```
 
-### 方式 2：构建可分发安装包
+### 方式 3：构建可分发安装包
 
 #### 只构建 macOS `.app`
 
@@ -88,8 +105,11 @@ build/release-bundles/final/SSH-Passwordless-Setup-Windows-Download-Then-Double-
 
 1. 服务器 IP 或域名
 2. SSH 用户名，默认 `root`
-3. 本地备注名，例如 `vultr-root`
-4. 服务器密码
+3. SSH 端口，默认 `22`
+4. 本地备注名，例如 `vultr-root`
+5. 服务器密码
+
+如果服务器禁用了密码登录，或 SSH 端口被服务器防火墙拦截，macOS 脚本会进入控制台接力模式：生成一条可粘贴到服务商 VNC/Console 的命令，用于写入公钥、尝试放行 SSH 端口，然后回到本地继续验证免密登录。
 
 配置完成后，可以直接：
 
@@ -99,11 +119,12 @@ ssh vultr-root
 
 ## 工作流程
 
-1. 采集服务器地址、用户名和本地别名
-2. 在本机生成新的 SSH 密钥，避免复用旧密钥
-3. 通过 `ssh-copy-id` 或回退逻辑安装公钥
-4. 写入带标记的 `~/.ssh/config` 片段，避免污染原配置
-5. 分别验证直连和别名免密登录
+1. 采集服务器地址、用户名、端口和本地别名
+2. 生成本地排查日志，并预检 SSH 端口连通性
+3. 在本机生成新的 SSH 密钥，避免复用旧密钥
+4. 通过 `ssh-copy-id`、回退逻辑或控制台接力安装公钥
+5. 写入带标记的 `~/.ssh/config` 片段，避免污染原配置
+6. 分别验证直连和别名免密登录
 
 ## macOS `.app` 签名与公证
 
