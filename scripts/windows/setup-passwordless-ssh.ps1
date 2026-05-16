@@ -1,7 +1,8 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 $DefaultRemoteUser = 'root'
+$DefaultSshPort = '22'
 
 function Write-Info($msg) { Write-Host "🔹 $msg" }
 function Write-Ok($msg) { Write-Host "✅ $msg" }
@@ -57,6 +58,19 @@ function Prompt-Inputs {
     throw 'SSH 用户名不能为空。'
   }
 
+  $portInput = Read-Host "请输入 SSH 端口（默认 $DefaultSshPort）"
+  if ([string]::IsNullOrWhiteSpace($portInput)) {
+    $script:SshPort = $DefaultSshPort
+  } else {
+    $script:SshPort = Trim-Value $portInput
+  }
+
+  $portNumber = 0
+  if ((-not [int]::TryParse($script:SshPort, [ref]$portNumber)) -or $portNumber -lt 1 -or $portNumber -gt 65535) {
+    throw 'SSH 端口必须是 1-65535 之间的数字。'
+  }
+  $script:SshPort = [string]$portNumber
+
   $aliasInput = Read-Host '请输入本地备注名（例如 vultr-root）'
   $aliasInput = Trim-Value $aliasInput
   if ([string]::IsNullOrWhiteSpace($aliasInput)) {
@@ -86,7 +100,10 @@ function Ensure-Keypair {
   }
 
   Write-Info "正在生成新的 SSH 密钥：$($script:KeyFile)"
-  & ssh-keygen -t ed25519 -f $script:KeyFile -C "$($env:USERNAME)@$($env:COMPUTERNAME)-$($script:HostAlias)" -N ''
+  $keyComment = "$($env:USERNAME)@$($env:COMPUTERNAME)-$($script:HostAlias)"
+  # Windows PowerShell 5.1 drops empty native-command arguments, so pass -N "" through cmd.exe.
+  $sshKeygenCommand = 'ssh-keygen -t ed25519 -f "{0}" -C "{1}" -N ""' -f $script:KeyFile, $keyComment
+  & cmd.exe /d /c $sshKeygenCommand
   if ($LASTEXITCODE -ne 0) {
     throw 'ssh-keygen 执行失败。'
   }
@@ -102,14 +119,14 @@ function Install-PublicKey {
   $target = "$($script:SshUser)@$($script:SshHost)"
   $sshCopyId = Get-Command ssh-copy-id -ErrorAction SilentlyContinue
   if ($sshCopyId) {
-    & $sshCopyId.Source -i "$($script:KeyFile).pub" -o StrictHostKeyChecking=accept-new $target
+    & $sshCopyId.Source -i "$($script:KeyFile).pub" -p $script:SshPort -o StrictHostKeyChecking=accept-new $target
     if ($LASTEXITCODE -ne 0) {
       throw 'ssh-copy-id 执行失败。'
     }
     return
   }
 
-  $pubKey = Get-Content "$($script:KeyFile).pub" -Raw
+  $pubKey = (Get-Content "$($script:KeyFile).pub" -Raw).TrimEnd("`r`n".ToCharArray()) + "`n"
   $remoteScript = @'
 set -eu
 umask 077
@@ -118,12 +135,15 @@ touch "$HOME/.ssh/authorized_keys"
 chmod 700 "$HOME/.ssh"
 chmod 600 "$HOME/.ssh/authorized_keys"
 tmp="$(mktemp)"
+trap 'rm -f "$tmp"' EXIT
 cat > "$tmp"
 grep -qxFf "$tmp" "$HOME/.ssh/authorized_keys" || cat "$tmp" >> "$HOME/.ssh/authorized_keys"
-rm -f "$tmp"
+grep -qxFf "$tmp" "$HOME/.ssh/authorized_keys"
+echo "__SSH_KEY_INSTALLED__"
 '@
+  $remoteScript = ($remoteScript -replace "`r`n", "`n") -replace "`r", "`n"
 
-  $pubKey | & ssh -o StrictHostKeyChecking=accept-new $target $remoteScript
+  $pubKey | & ssh -p $script:SshPort -o StrictHostKeyChecking=accept-new $target $remoteScript
   if ($LASTEXITCODE -ne 0) {
     throw '通过 ssh 安装公钥失败。'
   }
@@ -162,6 +182,7 @@ function Write-Config {
   $filtered.Add($script:MarkBegin)
   $filtered.Add("Host $($script:HostAlias)")
   $filtered.Add("  HostName $($script:SshHost)")
+  $filtered.Add("  Port $($script:SshPort)")
   $filtered.Add("  User $($script:SshUser)")
   $filtered.Add("  IdentityFile $($script:KeyFile.Replace('\','/'))")
   $filtered.Add('  IdentitiesOnly yes')
@@ -177,6 +198,7 @@ function Verify-PasswordlessLogin {
 
   & ssh `
     -i $script:KeyFile `
+    -p $script:SshPort `
     -o IdentitiesOnly=yes `
     -o BatchMode=yes `
     -o ConnectTimeout=8 `
