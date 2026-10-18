@@ -1,24 +1,40 @@
-# ssh-passwordless-installer
+<a id="ssh-passwordless-installer"></a>
 
-> 给新手准备的 SSH 免密配置器：下载、双击、输入服务器信息和密码，就能完成新的免密登录配置。
+<div align="center">
 
 <p align="center">
   <img src="./assets/brand/logo.svg" width="160" alt="SSH Passwordless Installer" />
 </p>
 
+# SSH 免密配置器 · 新手安装工具
+
+**下载、输入服务器信息，再按引导完成免密登录配置。**
+
+新手引导 · 本地配置 · macOS 应用 · 脚本运行
+
+[![中文说明](https://img.shields.io/badge/%E8%AF%B4%E6%98%8E-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-059669)](#readme-detail-14)
+[![项目类型](https://img.shields.io/badge/%E9%A1%B9%E7%9B%AE-%E5%B7%A5%E5%85%B7-6366f1)](#readme-detail-14)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![macOS](https://img.shields.io/badge/macOS-supported-black?logo=apple)](./scripts/macos)
 [![Windows](https://img.shields.io/badge/Windows-supported-blue?logo=windows)](./scripts/windows)
 [![SSH](https://img.shields.io/badge/SSH-passwordless-22c55e)](https://www.openssh.com/)
 [![App Bundle](https://img.shields.io/badge/macOS-.app_ready-0ea5e9)](./tools_build_macos_apps.sh)
 
+[✨ 核心特性](#readme-detail-14) · [👀 效果预览](#readme-detail-16) · [✅ 适用场景](#readme-detail-audience) · [🚀 快速开始](#readme-detail-18) · [🔒 安全说明](#readme-detail-30) · [🔄 工作流程](#readme-detail-20)
 
+</div>
 
-[功能亮点](#readme-section-1) · [预览](#readme-section-2) · [快速开始](#readme-section-3) · [工作流程](#readme-section-4) · [技术栈](#readme-section-5) · [macOS `.app` 签名与公证](#readme-section-6) · [仓库结构](#readme-section-8)
+---
+
+> 给新手准备的 SSH 免密配置器：下载、双击、输入服务器信息和密码，就能完成新的免密登录配置。
 
 <a id="readme-section-1"></a>
 
-## 功能亮点
+<a id="功能亮点"></a>
+
+<a id="readme-detail-14"></a>
+
+## ✨ 核心特性
 
 - macOS 和 Windows 都提供双击入口
 - 为每个服务器别名生成独立的 Ed25519 密钥
@@ -29,13 +45,29 @@
 
 <a id="readme-section-2"></a>
 
-## 预览
+<a id="预览"></a>
+
+<a id="readme-detail-16"></a>
+
+## 👀 效果预览
 
 ![SSH 免密配置器预览](./assets/preview/setup-flow-cn.svg)
 
+<a id="readme-detail-audience"></a>
+
+## ✅ 适用场景
+
+适合需要配置 SSH 免密登录的使用者。
+
 <a id="readme-section-3"></a>
 
-## 快速开始
+<a id="快速开始"></a>
+
+<a id="readme-detail-18"></a>
+
+## 🚀 快速开始
+
+从下面的现有入口开始，按顺序准备环境、配置并完成首次运行。
 
 ### 方式 1：使用 macOS App
 
@@ -118,7 +150,11 @@ ssh vultr-root
 
 <a id="readme-section-4"></a>
 
-## 工作流程
+<a id="工作流程"></a>
+
+<a id="readme-detail-20"></a>
+
+## 🔄 工作流程
 
 1. 采集服务器地址、用户名、端口和本地别名
 2. 生成本地排查日志，并预检 SSH 端口连通性
@@ -129,7 +165,13 @@ ssh vultr-root
 
 <a id="readme-section-5"></a>
 
-## 技术栈
+<a id="技术栈"></a>
+
+<a id="readme-detail-22"></a>
+
+## 🏗️ 技术栈
+
+SSH 免密配置器 的实现按下列技术与模块组织，接入和维护时可据此定位。
 
 | 层级 | 技术 |
 |---|---|
@@ -140,7 +182,11 @@ ssh vultr-root
 
 <a id="readme-section-6"></a>
 
-## macOS `.app` 签名与公证
+<a id="macos-app-签名与公证"></a>
+
+<a id="readme-detail-24"></a>
+
+## 📌 macOS `.app` 签名与公证
 
 如果需要构建签名后的 macOS 发布包，可选传入：
 
@@ -154,13 +200,23 @@ NOTARY_PROFILE="YOUR_NOTARY_PROFILE" \
 
 <a id="readme-section-7"></a>
 
-## 版本说明
+<a id="版本说明"></a>
+
+<a id="readme-detail-26"></a>
+
+## ⬆️ 版本说明
 
 - [v0.1.0](./docs/releases/v0.1.0.md)
 
 <a id="readme-section-8"></a>
 
-## 仓库结构
+<a id="仓库结构"></a>
+
+<a id="readme-detail-28"></a>
+
+## 📁 仓库结构
+
+下面按实现职责列出目录位置，便于把修改放回对应模块。
 
 ```text
 assets/
@@ -191,7 +247,11 @@ tools_build_release_bundles.sh
 
 <a id="readme-section-9"></a>
 
-## 安全说明
+<a id="安全说明"></a>
+
+<a id="readme-detail-30"></a>
+
+## 🔒 安全说明
 
 - 服务器密码只会由本机 `ssh` 或 `ssh-copy-id` 读取
 - 密码不会写入脚本、配置文件或仓库
@@ -202,19 +262,31 @@ tools_build_release_bundles.sh
 
 <a id="readme-section-10"></a>
 
-## 贡献
+<a id="贡献"></a>
+
+<a id="readme-detail-32"></a>
+
+## 🤝 贡献
 
 欢迎提交 bug 报告、改进建议和跨平台兼容性修复。开始贡献前请先阅读 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
 <a id="readme-section-11"></a>
 
-## 许可证
+<a id="许可证"></a>
+
+<a id="readme-detail-34"></a>
+
+## 📄 许可证
 
 MIT License，见 [LICENSE](./LICENSE)。
 
 <a id="readme-section-12"></a>
 
-## 作者
+<a id="作者"></a>
+
+<a id="readme-detail-36"></a>
+
+## 👤 作者
 
 - X: [Mileson07](https://x.com/Mileson07)
 - 小红书: [超级峰](https://xhslink.com/m/4LnJ9aB1f97)
