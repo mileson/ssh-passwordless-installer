@@ -14,9 +14,9 @@
 
 [English](./README.md)
 
-## 预览
+[功能亮点](#readme-section-1) · [预览](#readme-section-2) · [快速开始](#readme-section-3) · [工作流程](#readme-section-4) · [技术栈](#readme-section-5) · [macOS `.app` 签名与公证](#readme-section-6) · [仓库结构](#readme-section-8)
 
-![SSH 免密配置器预览](./assets/preview/setup-flow-cn.svg)
+<a id="readme-section-1"></a>
 
 ## 功能亮点
 
@@ -27,14 +27,13 @@
 - 自动验证直连和别名登录是否都可用
 - 支持打包为可分发的 macOS `.app` 和 Windows zip
 
-## 技术栈
+<a id="readme-section-2"></a>
 
-| 层级 | 技术 |
-|---|---|
-| 本地执行 | Bash、PowerShell |
-| SSH 能力 | OpenSSH、`ssh-copy-id` |
-| macOS 打包 | `qlmanage`、`sips`、`iconutil`、`ditto` |
-| Windows 分发 | `.bat` 启动器 + `.ps1` 主逻辑 |
+## 预览
+
+![SSH 免密配置器预览](./assets/preview/setup-flow-cn.svg)
+
+<a id="readme-section-3"></a>
 
 ## 快速开始
 
@@ -117,6 +116,8 @@ build/release-bundles/final/SSH-Passwordless-Setup-Windows-Download-Then-Double-
 ssh vultr-root
 ```
 
+<a id="readme-section-4"></a>
+
 ## 工作流程
 
 1. 采集服务器地址、用户名、端口和本地别名
@@ -125,6 +126,19 @@ ssh vultr-root
 4. 通过 `ssh-copy-id`、回退逻辑或控制台接力安装公钥
 5. 写入带标记的 `~/.ssh/config` 片段，避免污染原配置
 6. 分别验证直连和别名免密登录
+
+<a id="readme-section-5"></a>
+
+## 技术栈
+
+| 层级 | 技术 |
+|---|---|
+| 本地执行 | Bash、PowerShell |
+| SSH 能力 | OpenSSH、`ssh-copy-id` |
+| macOS 打包 | `qlmanage`、`sips`、`iconutil`、`ditto` |
+| Windows 分发 | `.bat` 启动器 + `.ps1` 主逻辑 |
+
+<a id="readme-section-6"></a>
 
 ## macOS `.app` 签名与公证
 
@@ -137,6 +151,14 @@ NOTARY_PROFILE="YOUR_NOTARY_PROFILE" \
 ```
 
 未提供这些变量时，脚本会生成适合测试或内部使用的未签名 zip。
+
+<a id="readme-section-7"></a>
+
+## 版本说明
+
+- [v0.1.0](./docs/releases/v0.1.0.md)
+
+<a id="readme-section-8"></a>
 
 ## 仓库结构
 
@@ -167,6 +189,8 @@ tools_build_macos_apps.sh
 tools_build_release_bundles.sh
 ```
 
+<a id="readme-section-9"></a>
+
 ## 安全说明
 
 - 服务器密码只会由本机 `ssh` 或 `ssh-copy-id` 读取
@@ -176,17 +200,19 @@ tools_build_release_bundles.sh
 
 更多说明见 [SECURITY.md](./SECURITY.md)。
 
-## 版本说明
-
-- [v0.1.0](./docs/releases/v0.1.0.md)
+<a id="readme-section-10"></a>
 
 ## 贡献
 
 欢迎提交 bug 报告、改进建议和跨平台兼容性修复。开始贡献前请先阅读 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
+<a id="readme-section-11"></a>
+
 ## 许可证
 
 MIT License，见 [LICENSE](./LICENSE)。
+
+<a id="readme-section-12"></a>
 
 ## 作者
 
