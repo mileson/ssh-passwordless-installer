@@ -1,6 +1,6 @@
 # ssh-passwordless-installer
 
-> A double-click SSH onboarding tool for macOS and Windows. Generate a fresh key, install it on a remote server, write a safe SSH alias, and verify passwordless login in one guided flow.
+> 给新手准备的 SSH 免密配置器：下载、双击、输入服务器信息和密码，就能完成新的免密登录配置。
 
 <p align="center">
   <img src="./assets/brand/logo.svg" width="160" alt="SSH Passwordless Installer" />
@@ -12,49 +12,49 @@
 [![SSH](https://img.shields.io/badge/SSH-passwordless-22c55e)](https://www.openssh.com/)
 [![App Bundle](https://img.shields.io/badge/macOS-.app_ready-0ea5e9)](./tools_build_macos_apps.sh)
 
-[简体中文](./README_CN.md)
 
-[Features](#readme-section-1) · [Preview](#readme-section-2) · [Quick Start](#readme-section-3) · [How It Works](#readme-section-4) · [Tech Stack](#readme-section-5) · [Signed macOS builds](#readme-section-6) · [Project Structure](#readme-section-7)
+
+[功能亮点](#readme-section-1) · [预览](#readme-section-2) · [快速开始](#readme-section-3) · [工作流程](#readme-section-4) · [技术栈](#readme-section-5) · [macOS `.app` 签名与公证](#readme-section-6) · [仓库结构](#readme-section-8)
 
 <a id="readme-section-1"></a>
 
-## Features
+## 功能亮点
 
-- Double-click entry points for both macOS and Windows
-- Fresh Ed25519 key generation for each SSH alias
-- Automatic public-key installation with `ssh-copy-id` fallback logic
-- Managed `~/.ssh/config` blocks that can be safely updated per alias
-- Built-in verification for both direct key login and alias login
-- Release-bundle friendly structure for sharing with end users
+- macOS 和 Windows 都提供双击入口
+- 为每个服务器别名生成独立的 Ed25519 密钥
+- 自动把公钥安装到远端服务器
+- 自动写入受控的 `~/.ssh/config` 配置块
+- 自动验证直连和别名登录是否都可用
+- 支持打包为可分发的 macOS `.app` 和 Windows zip
 
 <a id="readme-section-2"></a>
 
-## Preview
+## 预览
 
-![SSH Passwordless Installer preview](./assets/preview/setup-flow.svg)
+![SSH 免密配置器预览](./assets/preview/setup-flow-cn.svg)
 
 <a id="readme-section-3"></a>
 
-## Quick Start
+## 快速开始
 
-### Option 1: Use the macOS App
+### 方式 1：使用 macOS App
 
-Build and unzip the macOS `.app`, then double-click it:
+构建并解压 macOS `.app` 后双击运行：
 
 ```bash
 chmod +x ./tools_build_macos_apps.sh
 ./tools_build_macos_apps.sh
 ```
 
-This generates:
+生成：
 
 ```text
 build/macos-apps/final/SSH-Passwordless-Setup-macOS.zip
 ```
 
-The app opens Terminal on launch and runs the bundled command-line setup flow.
+这个 App 会在双击后打开 Terminal，并执行内置的命令行配置流程。
 
-### Option 2: Run the local script
+### 方式 2：直接本地运行脚本
 
 #### macOS
 
@@ -65,52 +65,52 @@ chmod +x ./scripts/macos/setup-passwordless-ssh.command
 
 #### Windows
 
-Double-click:
+双击：
 
 ```text
 scripts\windows\setup-passwordless-ssh.bat
 ```
 
-### Option 3: Build shareable release bundles
+### 方式 3：构建可分发安装包
 
-#### Build only the macOS `.app`
+#### 只构建 macOS `.app`
 
 ```bash
 chmod +x ./tools_build_macos_apps.sh
 ./tools_build_macos_apps.sh
 ```
 
-This generates:
+生成：
 
 ```text
 build/macos-apps/final/SSH-Passwordless-Setup-macOS.zip
 ```
 
-#### Build both macOS and Windows bundles
+#### 同时构建 macOS 和 Windows 分发包
 
 ```bash
 chmod +x ./tools_build_release_bundles.sh
 ./tools_build_release_bundles.sh
 ```
 
-This generates:
+生成：
 
 ```text
 build/release-bundles/final/SSH-Passwordless-Setup-macOS.zip
 build/release-bundles/final/SSH-Passwordless-Setup-Windows-Download-Then-Double-Click.zip
 ```
 
-### What the user is asked for
+### 运行时会提示输入什么
 
-1. server IP or hostname
-2. SSH username, defaulting to `root`
-3. SSH port, defaulting to `22`
-4. a local alias such as `vultr-root`
-5. the server password
+1. 服务器 IP 或域名
+2. SSH 用户名，默认 `root`
+3. SSH 端口，默认 `22`
+4. 本地备注名，例如 `vultr-root`
+5. 服务器密码
 
-If password login is disabled or the SSH port is blocked by the server firewall, the macOS script enters a console bootstrap flow: it prints one command to paste into the provider VNC/Console, installs the public key, tries to open the SSH port, then resumes local verification.
+如果服务器禁用了密码登录，或 SSH 端口被服务器防火墙拦截，macOS 脚本会进入控制台接力模式：生成一条可粘贴到服务商 VNC/Console 的命令，用于写入公钥、尝试放行 SSH 端口，然后回到本地继续验证免密登录。
 
-Once the flow completes, the user can connect with:
+配置完成后，可以直接：
 
 ```bash
 ssh vultr-root
@@ -118,31 +118,31 @@ ssh vultr-root
 
 <a id="readme-section-4"></a>
 
-## How It Works
+## 工作流程
 
-1. collect host, username, port, and alias input
-2. create a local diagnostic log and preflight the SSH port
-3. create a fresh local SSH key for that alias
-4. install the public key through `ssh-copy-id`, the fallback installer, or console bootstrap
-5. write a managed `~/.ssh/config` block
-6. verify passwordless login by both direct key and alias
+1. 采集服务器地址、用户名、端口和本地别名
+2. 生成本地排查日志，并预检 SSH 端口连通性
+3. 在本机生成新的 SSH 密钥，避免复用旧密钥
+4. 通过 `ssh-copy-id`、回退逻辑或控制台接力安装公钥
+5. 写入带标记的 `~/.ssh/config` 片段，避免污染原配置
+6. 分别验证直连和别名免密登录
 
 <a id="readme-section-5"></a>
 
-## Tech Stack
+## 技术栈
 
-| Layer | Technology |
+| 层级 | 技术 |
 |---|---|
-| Local runtime | Bash, PowerShell |
-| SSH operations | OpenSSH, `ssh-copy-id` |
-| macOS packaging | `qlmanage`, `sips`, `iconutil`, `ditto` |
-| Windows packaging | `.bat` launcher plus `.ps1` implementation |
+| 本地执行 | Bash、PowerShell |
+| SSH 能力 | OpenSSH、`ssh-copy-id` |
+| macOS 打包 | `qlmanage`、`sips`、`iconutil`、`ditto` |
+| Windows 分发 | `.bat` 启动器 + `.ps1` 主逻辑 |
 
 <a id="readme-section-6"></a>
 
-## Signed macOS builds
+## macOS `.app` 签名与公证
 
-If you want a signed and notarized macOS release, pass the optional build variables:
+如果需要构建签名后的 macOS 发布包，可选传入：
 
 ```bash
 CODESIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" \
@@ -150,17 +150,24 @@ NOTARY_PROFILE="YOUR_NOTARY_PROFILE" \
 ./tools_build_macos_apps.sh
 ```
 
-Without those variables, the script creates an unsigned zip suitable for local testing or internal sharing.
+未提供这些变量时，脚本会生成适合测试或内部使用的未签名 zip。
 
 <a id="readme-section-7"></a>
 
-## Project Structure
+## 版本说明
+
+- [v0.1.0](./docs/releases/v0.1.0.md)
+
+<a id="readme-section-8"></a>
+
+## 仓库结构
 
 ```text
 assets/
   brand/
     logo.svg
   preview/
+    setup-flow-cn.svg
     setup-flow.svg
 
 docs/
@@ -182,39 +189,33 @@ tools_build_macos_apps.sh
 tools_build_release_bundles.sh
 ```
 
-<a id="readme-section-8"></a>
-
-## Release Notes
-
-- [v0.1.0](./docs/releases/v0.1.0.md)
-
 <a id="readme-section-9"></a>
 
-## Security
+## 安全说明
 
-- Server passwords are typed directly into local `ssh` or `ssh-copy-id` prompts
-- Passwords are not written into the scripts, config files, or release assets
-- The tool adds a new public key but does not delete older keys automatically
-- Private keys remain on the user's machine under `~/.ssh/`
+- 服务器密码只会由本机 `ssh` 或 `ssh-copy-id` 读取
+- 密码不会写入脚本、配置文件或仓库
+- 工具只会新增新的公钥，不会自动删除旧密钥
+- 私钥始终保存在用户自己的 `~/.ssh/` 目录中
 
-See [SECURITY.md](./SECURITY.md) for the disclosure guidance and safe-usage notes.
+更多说明见 [SECURITY.md](./SECURITY.md)。
 
 <a id="readme-section-10"></a>
 
-## Contributing
+## 贡献
 
-Bug reports, compatibility fixes, and release improvements are welcome. Please start with [CONTRIBUTING.md](./CONTRIBUTING.md).
+欢迎提交 bug 报告、改进建议和跨平台兼容性修复。开始贡献前请先阅读 [CONTRIBUTING.md](./CONTRIBUTING.md)。
 
 <a id="readme-section-11"></a>
 
-## License
+## 许可证
 
-MIT License. See [LICENSE](./LICENSE).
+MIT License，见 [LICENSE](./LICENSE)。
 
 <a id="readme-section-12"></a>
 
-## Author
+## 作者
 
 - X: [Mileson07](https://x.com/Mileson07)
-- Xiaohongshu: [超级峰](https://xhslink.com/m/4LnJ9aB1f97)
-- Douyin: [超级峰](https://v.douyin.com/rH645q7trd8/)
+- 小红书: [超级峰](https://xhslink.com/m/4LnJ9aB1f97)
+- 抖音: [超级峰](https://v.douyin.com/rH645q7trd8/)
