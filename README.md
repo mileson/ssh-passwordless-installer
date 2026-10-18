@@ -14,9 +14,9 @@
 
 [简体中文](./README_CN.md)
 
-## Preview
+[Features](#readme-section-1) · [Preview](#readme-section-2) · [Quick Start](#readme-section-3) · [How It Works](#readme-section-4) · [Tech Stack](#readme-section-5) · [Signed macOS builds](#readme-section-6) · [Project Structure](#readme-section-7)
 
-![SSH Passwordless Installer preview](./assets/preview/setup-flow.svg)
+<a id="readme-section-1"></a>
 
 ## Features
 
@@ -27,14 +27,13 @@
 - Built-in verification for both direct key login and alias login
 - Release-bundle friendly structure for sharing with end users
 
-## Tech Stack
+<a id="readme-section-2"></a>
 
-| Layer | Technology |
-|---|---|
-| Local runtime | Bash, PowerShell |
-| SSH operations | OpenSSH, `ssh-copy-id` |
-| macOS packaging | `qlmanage`, `sips`, `iconutil`, `ditto` |
-| Windows packaging | `.bat` launcher plus `.ps1` implementation |
+## Preview
+
+![SSH Passwordless Installer preview](./assets/preview/setup-flow.svg)
+
+<a id="readme-section-3"></a>
 
 ## Quick Start
 
@@ -117,6 +116,8 @@ Once the flow completes, the user can connect with:
 ssh vultr-root
 ```
 
+<a id="readme-section-4"></a>
+
 ## How It Works
 
 1. collect host, username, port, and alias input
@@ -125,6 +126,19 @@ ssh vultr-root
 4. install the public key through `ssh-copy-id`, the fallback installer, or console bootstrap
 5. write a managed `~/.ssh/config` block
 6. verify passwordless login by both direct key and alias
+
+<a id="readme-section-5"></a>
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Local runtime | Bash, PowerShell |
+| SSH operations | OpenSSH, `ssh-copy-id` |
+| macOS packaging | `qlmanage`, `sips`, `iconutil`, `ditto` |
+| Windows packaging | `.bat` launcher plus `.ps1` implementation |
+
+<a id="readme-section-6"></a>
 
 ## Signed macOS builds
 
@@ -137,6 +151,8 @@ NOTARY_PROFILE="YOUR_NOTARY_PROFILE" \
 ```
 
 Without those variables, the script creates an unsigned zip suitable for local testing or internal sharing.
+
+<a id="readme-section-7"></a>
 
 ## Project Structure
 
@@ -166,6 +182,14 @@ tools_build_macos_apps.sh
 tools_build_release_bundles.sh
 ```
 
+<a id="readme-section-8"></a>
+
+## Release Notes
+
+- [v0.1.0](./docs/releases/v0.1.0.md)
+
+<a id="readme-section-9"></a>
+
 ## Security
 
 - Server passwords are typed directly into local `ssh` or `ssh-copy-id` prompts
@@ -175,17 +199,19 @@ tools_build_release_bundles.sh
 
 See [SECURITY.md](./SECURITY.md) for the disclosure guidance and safe-usage notes.
 
-## Release Notes
-
-- [v0.1.0](./docs/releases/v0.1.0.md)
+<a id="readme-section-10"></a>
 
 ## Contributing
 
 Bug reports, compatibility fixes, and release improvements are welcome. Please start with [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+<a id="readme-section-11"></a>
+
 ## License
 
 MIT License. See [LICENSE](./LICENSE).
+
+<a id="readme-section-12"></a>
 
 ## Author
 
